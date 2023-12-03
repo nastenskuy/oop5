@@ -1,0 +1,156 @@
+//Завдання №1
+class Calculator
+{
+    static double calculator(double item1, double item2, char item)
+    {
+        switch (item)
+        {
+            case '*':
+                return item1 * item2;
+            case '-':
+                return item1 - item2;
+            case '+':
+                return item1 + item2;
+            case '/':
+                if (item2 != 0)
+                    return item1 / item2;
+                else
+                    throw new DivideByZeroException("Щось пішло не так");
+            default:
+                throw new ArgumentException("Кінець");
+        }
+    }
+    static void Main()
+    {
+        double item1, item2, end;
+        char item;
+        Console.Write("Напишіть будь-яке число - ");
+        item1 = Convert.ToDouble(Console.ReadLine());
+        Console.Write("Наишіть ще якесь число - ");
+        item2 = Convert.ToDouble(Console.ReadLine());
+        Console.Write("Виберіть будь яку операцію, яку ви бажаєте *, /, +, - ");
+        item = Convert.ToChar(Console.ReadLine());
+        try
+        {
+            end = calculator(item1, item2, item);
+            Console.WriteLine($"Відповідь - {end}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Щось пішло не так {e.Message}");
+        }
+        //Завдання №2
+        int n = 17;
+        bool a = use(n);
+        Console.WriteLine($"Так, це просте число");
+        static bool use(int num)
+        {
+            if (num <= 1)
+                return false;
+
+            for (int b = 2; b <= Math.Sqrt(num); b++)
+            {
+                if (num % b == 0)
+                    return false;
+            }
+            return true;
+        }
+
+        //Завдання №3
+
+        double sum = 100;
+        double rate = 37;
+        string curr = Currency(sum, rate, "$", "₴");
+
+        Console.WriteLine($"{a} $ = {curr} ");
+
+        static double c(double a, double rate)
+        {
+            return a * rate;
+        }
+
+        static string Currency(double sum, double rate, string fromCurrency, string doo)
+        {
+            double convertedAmount = c(sum, rate);
+            return $"{convertedAmount} {doo}";
+        }
+
+        //Завдання №4
+        int[] A = { 19, 56, 8, 11, 37, 92, 1, 33 };
+        var value = search(A);
+        Console.WriteLine($" Максимум - {value.Item2}");
+        Console.WriteLine($" Мінімум - {value.Item1}");
+        static Tuple<int, int> search(int[] ar)
+        {
+            if (ar == null || ar.Length == 0)
+            {
+                throw new ArgumentException(" Щось пішло не так(");
+            }
+            int Min = ar[0];
+            int Max = ar[0];
+            for (int i = 1; i < ar.Length; i++)
+            {
+                if (ar[i] < Min)
+                {
+                    Min = ar[i];
+                }
+
+                if (ar[i] > Max)
+                {
+                    Max = ar[i];
+                }
+            }
+            return new Tuple<int, int>(Min, Max);
+        }
+        //Завдання №5
+
+        string example = "Мене звати Ананстсія)";
+        var score = CountVowelsAndConsonants(example);
+
+        Console.WriteLine($"Голосні у реченні (Мене звати Анастасія) = {score.Item1}");
+        Console.WriteLine($"Приголосні у реченні (Мене звати Анастасія) = {score.Item2}");
+
+        static Tuple<int, int> CountVowelsAndConsonants(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                throw new ArgumentException("Щось пішло не так(");
+            }
+
+            int loud = 0;
+            int consonants = 0;
+
+            string lowercaseInput = input.ToLower();
+
+            foreach (char ch in lowercaseInput)
+            {
+                if (char.IsLetter(ch))
+                {
+                    if ("aeiouаеуиіоєя".Contains(ch))
+                    {
+                        loud++;
+                    }
+                    else
+                    {
+                        consonants++;
+                    }
+                }
+            }
+
+            return new Tuple<int, int>(loud, consonants);
+
+        }
+        //Завдання №6
+        Console.Write("Напишіть радіус кола - ");
+        double r = Convert.ToDouble(Console.ReadLine());
+
+        double area = CalculateSurfaceArea(r);        
+
+        Console.WriteLine($"Площа кола ={area}");
+
+        static double CalculateSurfaceArea(double R)
+        {
+            return 3 * R * R;
+        }
+    }
+}
